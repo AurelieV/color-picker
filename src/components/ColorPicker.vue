@@ -147,11 +147,17 @@ export default {
     methods: {
         getStringValueFromHsl(hsl, format = this.format) {
             if (format === "hsl") {
+                if (hsl[3] == 1) {
+                    hsl = hsl.slice(0, 3)
+                }
                 return colorString.to.hsl(hsl);
             }
-            const rgb = this.convertHSLToRGB(hsl);
+            let rgb = this.convertHSLToRGB(hsl);
             if (rgb[3] !== undefined) {
                 rgb[3] = parseFloat(rgb[3]).toFixed(2);
+            }
+            if (rgb[3] == 1) {
+                rgb = rgb.slice(0, 3)
             }
             return format === "hex" ? colorString.to.hex(rgb) : colorString.to.rgb(rgb);
         },
@@ -162,7 +168,7 @@ export default {
         },
         setAlpha(alpha) {
             const color = [...this.hslValues];
-            color[3] = alpha;
+            color[3] = parseFloat(alpha);
             this.$emit("input", this.getStringValueFromHsl(color));
         },
         setFormat(format) {

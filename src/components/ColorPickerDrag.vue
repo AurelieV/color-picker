@@ -33,11 +33,11 @@ export default {
         },
         onMouseMove($event) {
             if (!this.isDraging) return;
-            const {width, left, bottom, height} = this.elementBoudingClientRect
-            const s = parseInt((($event.clientX - left) / width * 100))
-            const l = parseInt(((bottom - $event.clientY) / height * 100))
+            const { width, left, bottom, height } = this.elementBoudingClientRect;
+            const s = parseInt((($event.clientX - left) / width) * 100);
+            const l = parseInt(((bottom - $event.clientY) / height) * 100);
 
-            this.$emit('input', [this.hslValues[0], s, l, this.hslValues[3]])
+            this.$emit("input", [this.hslValues[0], s, l, this.hslValues[3]]);
         },
     },
     computed: {
